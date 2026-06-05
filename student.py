@@ -2,6 +2,7 @@ class Student:
     # class variables
     total_students = 0
     all_students = []
+    GENDER = ["Male", "Female"]
 
     # for everytime we create an instance, update the all_students array to include the instance you just created
 
@@ -31,6 +32,36 @@ class Student:
 
         else:
             raise ValueError("First name must be of type string")
+
+    def __repr__(self):
+        return str(self.__dict__)
+
+# Gender property & setter
+    @property
+    def gender(self):
+       return self._GENDER
+
+    @gender.setter
+    def gender(self, gender_input):
+            if isinstance(gender_input, str):
+                  self._GENDER = gender_input
+            else:
+                raise ValueError("There are only two genders")  # ← fixed typo "ar" → "are"
+            
+
+    @classmethod
+    def display_male_students(cls):
+        male_students = [student for student in cls.all_students if student.gender == "Male"]
+        print("\nMale Students:")
+        for index, student in enumerate(male_students, start=1):
+            print(f"{index}. {student.first_name} {student.last_name}")        
+
+    @classmethod
+    def display_female_students(cls):
+        female_students = [student for student in cls.all_students if student.gender == "Female"]
+        print("\nFemale Students:")
+        for index, student in enumerate(female_students, start=1):
+            print(f"{index}. {student.first_name} {student.last_name}")
 
     def __repr__(self):
         return str(self.__dict__)
@@ -86,3 +117,6 @@ print(student3.email)
 
 
 print(student5)
+
+Student.display_male_students()
+Student.display_female_students()
